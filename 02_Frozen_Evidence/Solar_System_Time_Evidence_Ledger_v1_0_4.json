@@ -1,0 +1,112 @@
+{
+  "claim_boundary": {
+    "absolute_epoch_supplied_to_inverse_resolver": false,
+    "catalog_time_used_upstream_for_packetization": true,
+    "clock_replacement_claimed": false,
+    "ephemeris_free_claimed": false,
+    "low_complexity_physical_model_used": true,
+    "navigation_grade_claimed": false,
+    "relative_within_packet_time_supplied_to_inverse_resolver": false,
+    "unrestricted_all_time_recovery_claimed": false
+  },
+  "evidence": {
+    "R1": {
+      "classification": "R1_MODEL_IDENTIFIABILITY_PASS",
+      "gate": "PASS",
+      "project_result_established": false
+    },
+    "R2": {
+      "classification": "R2_CROSS_REALIZATION_EPOCH_BASIN_PASS",
+      "gate": "PASS",
+      "precision_time_recovery_pass": false
+    },
+    "R3": {
+      "calibration_sha256": "f7039b9fb36402c6ca05138d89ff5c6e2d4bba5c89e0b16bc73794c6d4ac0fcf",
+      "classification": "R3_FROZEN_CALIBRATION_BLIND_RESERVE_PASS",
+      "gate": "PASS",
+      "reserve_cases": 232,
+      "reserve_mae_hours": 0.972227,
+      "reserve_p95_hours": 2.587223,
+      "under_6h": "232/232"
+    },
+    "R4": {
+      "classification": "R4_INDEPENDENT_EPHEMERIS_TRANSFER_PASS",
+      "corrected_mae_hours": 3.187374,
+      "gate": "PASS",
+      "p95_hours": 7.025196,
+      "reserve_cases": 24
+    },
+    "R5": {
+      "classification": "R5_HORIZONS_PRECISION_EPHEMERIS_REPLICATION_PASS",
+      "corrected_mae_hours": 1.056918,
+      "gate": "PASS",
+      "p95_hours": 2.929592,
+      "reserve_cases": 32,
+      "under_6h": "32/32"
+    },
+    "R6": {
+      "classification": "R6_INDEPENDENT_SOURCE_FAMILY_REPLICATION_PASS",
+      "corrected_mae_hours": 0.929349,
+      "gate": "PASS",
+      "max_hours": 2.986821,
+      "p95_hours": 2.658462,
+      "reserve_cases": 36,
+      "under_4h": "36/36"
+    },
+    "R7C": {
+      "classification": "R7C_BLIND_OBSERVATION_RESERVE_PASS",
+      "gate": "PASS",
+      "max_abs_error_days": 2.16375,
+      "median_abs_error_days": 0.828007,
+      "minimum_second_to_best_ratio": 9.956303,
+      "observation_family": "USNO_W1J00_W2J00_TRANSIT_CIRCLE",
+      "p95_abs_error_days": 2.15479,
+      "predictions_frozen_before_truth_reveal": true,
+      "reserve_cases": 24,
+      "score_sha256": "6da9b6029aad28666694066b59bdb501a0829da2bacb8a73192bf04924c39d70",
+      "within_3d": "24/24"
+    },
+    "R8C": {
+      "classification": "R8C_INDEPENDENT_PHOTOGRAPHIC_BLIND_RESERVE_PASS",
+      "freeze_sha256": "b5247af065fb58600adc39eed47d87d372c36192fc9ee2170a266c9f9553501c",
+      "gate": "PASS",
+      "max_abs_error_days": 0.164016,
+      "median_abs_error_days": 0.149884,
+      "minimum_second_to_best_ratio": 14.39141,
+      "observation_family": "UKRAINE_PHOTOGRAPHIC_URANUS_NEPTUNE",
+      "p95_abs_error_days": 0.164016,
+      "packet_reselection_used": false,
+      "parameter_fitting_used": false,
+      "prediction_sha256": "bf4e926d0027ae1a699ac9954d6e6a3f05df9f81c2b0612a4ad50ac55e40705c",
+      "predictions_frozen_before_truth_reveal": true,
+      "reserve_cases": 7,
+      "score_sha256": "e1f3cc123fa3de6fffd5b5f42b266bd631d367e0c4731c0bfdc19058af238f06",
+      "within_3d": "7/7",
+      "within_7d": "7/7"
+    },
+    "R8D": {
+      "audit_only": true,
+      "audit_search_span_days": 30134.243682,
+      "classification": "R8D_SEARCH_BOUNDARY_AND_CHRONOLOGY_STRESS_PASS",
+      "max_prediction_shift_days": 0.158356,
+      "max_truth_abs_error_days": 0.166122,
+      "new_blind_evidence_claimed": false,
+      "original_search_span_days": 10044.747894,
+      "report_sha256": "1fd1a3e1317fdbe689dcc1b8aa894dd7f77f600c312da761b50bff2a18e62ccb",
+      "same_basin_cases": "7/7",
+      "truth_already_known": true
+    },
+    "R8E": {
+      "audit_sha256": "887c17ac8d9acf29b5224d4043fe53745c3516a5110fe85a3e758bbd71fd2327",
+      "classification": "R8E_BOUNDED_OBSERVATIONAL_REPLICATION_CLAIM_AUDIT_PASS",
+      "external_independent_reproduction_complete": false,
+      "project_claim_boundary_gate_passed": true
+    }
+  },
+  "external_independent_reproduction_complete": false,
+  "external_replication_status": "OPEN_NOT_YET_CONFIRMED",
+  "package": "Solar System Time Scientific Package",
+  "version": "1.0.4",
+  "project_scope": "PROJECT_LEVEL_BOUNDED_OBSERVATIONAL_EPOCH_RECONSTRUCTION",
+  "project_evidence_status": "BOUNDED_OBSERVATIONAL_EPOCH_RECONSTRUCTION_RESULT"
+}

@@ -1,0 +1,15 @@
+SOLAR SYSTEM TIME — EXTERNAL TIMESTAMP STATUS v1.0.4
+
+Historical project prediction/freeze hashes are recorded in the project ledger.
+They were not, at the time of the historical blind test, anchored to an
+independently controlled public timestamp included in this package.
+
+Therefore:
+- the hashes are useful integrity/commitment identifiers;
+- this package does not claim they independently prove pre-truth publication;
+- no retroactive timestamp can repair that historical limitation.
+
+For a future new blind test, freeze the prediction artifact and anchor its SHA-256
+through a public, independently timestamped mechanism before truth reveal (for
+example a public repository commit, DOI-bearing archival deposit, or comparable
+external timestamping service).

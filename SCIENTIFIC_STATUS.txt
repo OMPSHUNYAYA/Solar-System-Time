@@ -1,0 +1,49 @@
+SOLAR SYSTEM TIME — SCIENTIFIC STATUS v1.0.4
+
+Current package status
+----------------------------
+BOUNDED_OBSERVATIONAL_EPOCH_RECONSTRUCTION_RESULT
+
+Independent third-party reproduction
+------------------------------------
+OPEN_NOT_YET_CONFIRMED
+
+Interpretation
+--------------
+The project records two bounded blind-reserve observational results:
+- USNO transit-circle route: 24/24 within 3 days; median absolute error 0.828007 day.
+- Ukrainian photographic Uranus/Neptune route: 7/7 within ~4 hours; median absolute error 0.149884 day (~3.60 h).
+
+The technique itself is not presented as a new discovery about time. Recovering
+an epoch from celestial configuration is an established celestial-mechanics
+idea. The contribution claimed here is narrower: a compact dependency-free
+reference implementation, disciplined claim boundaries, and project-recorded
+bounded observational tests.
+
+Historical project record
+-------------------------
+The evidence ledger records the R8E audit as
+R8E_BOUNDED_OBSERVATIONAL_REPLICATION_CLAIM_AUDIT_PASS.
+This is a historical project record only; it is not outside endorsement,
+certification, peer review, or independent validation.
+
+Verification boundary
+---------------------
+The package integrity verifier checks declared ledger fields and file hashes.
+The clock structure verifier checks HTML/offline/UI properties. Neither verifier
+validates the astronomy or reproduces the headline observational metrics.
+
+Chronology / commitment boundary
+--------------------------------
+Historical SHA-256 values are project commitment records. Because they were
+not anchored at the time to an independently controlled public timestamp, the
+current package does not present them as cryptographic proof of pre-truth
+publication. A future new blind test should externally timestamp its frozen
+prediction hash before truth reveal.
+
+Reproducibility boundary
+------------------------
+The raw observational reserve inputs are not redistributed. Consequently, the
+24/24 and 7/7 historical results cannot be regenerated from this package alone.
+The runnable self-test is a same-model synthetic round trip and validates solver
+behavior, not real-sky model fidelity.

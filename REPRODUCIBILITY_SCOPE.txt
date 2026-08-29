@@ -1,0 +1,33 @@
+SOLAR SYSTEM TIME — REPRODUCIBILITY SCOPE v1.0.4
+
+Runnable from this package
+-------------------------
+1. Reference resolver synthetic self-test.
+   This is a same-model round trip and validates solver mechanics only.
+2. Ledger & artifact integrity verifier.
+   This validates project-record consistency and current package hashes only.
+3. Interactive clock structure verifier.
+   This validates declared HTML/offline/UI properties only.
+
+Not reproducible from this package alone
+---------------------------------------
+The 24/24 USNO and 7/7 Ukrainian photographic blind-reserve results cannot be
+regenerated because the source observational inputs are not redistributed.
+Users seeking independent reproduction must obtain the cited source data under
+the source services' current terms and build traceable local inputs.
+
+Blindness cannot be recreated for revealed cases. A scientifically stronger new
+reproduction should precommit a new source subset, model contract, packetization
+rule, search domain and scoring gate, then externally timestamp the prediction
+hash before truth reveal.
+
+Coordinate contract
+-------------------
+The active compact resolver is the J2000 astrometric Uranus/Neptune lane and
+includes planetary light-time. Apparent-coordinate lanes require their own
+appropriate transformation contract and must not be silently mixed.
+
+Model validity
+--------------
+The active approximate element set is declared for 1800-2050. The resolver
+refuses out-of-window searches by default.

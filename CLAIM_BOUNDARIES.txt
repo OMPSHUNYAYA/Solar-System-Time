@@ -1,0 +1,38 @@
+SOLAR SYSTEM TIME — CLAIM BOUNDARIES v1.0.4
+
+Permitted framing
+-----------------
+- bounded epoch recovery from declared planetary astrometric inputs;
+- compact, dependency-free reference implementation;
+- project-recorded blind-reserve results from two observational archives;
+- reproducible synthetic solver self-test;
+- standalone low-precision visual clock/demo.
+
+Required qualifications
+-----------------------
+- celestial-configuration dating is an established idea, not claimed here as a
+  new discovery about time;
+- project-recorded historical result, not external endorsement/certification;
+- independent third-party reproduction remains open;
+- raw reserve observations are not included, so headline blind metrics are not
+  reproducible from this package alone;
+- historical project hashes are integrity/commitment records, not independently
+  timestamped proof of chronology;
+- catalogue timestamps were used upstream for packetization and chronological
+  development/reserve partitioning;
+- inverse resolver did not receive absolute observation epochs or relative
+  within-packet time offsets;
+- reference model is not ephemeris-free and is low precision relative to modern
+  integrated ephemerides;
+- active approximate-element validity window is 1800-2050 unless explicitly
+  overridden for exploratory use.
+
+Not claimed
+-----------
+- novelty of celestial dating / epoch recovery itself;
+- replacement of UTC, TAI, GPS/GNSS, atomic clocks, or civil timekeeping;
+- navigation-grade, sub-second, unrestricted all-time, or arbitrary-epoch timing;
+- cryptographic proof that an event physically occurred at a claimed epoch;
+- completed independent third-party reproduction;
+- peer review, institutional certification, or external endorsement;
+- astronomical validation from green package-check badges.

@@ -1,0 +1,10 @@
+# Solar System Time Scientific Package v1.0.4 key-artifact integrity manifest.
+# Scope: selected computational and machine-readable evidence anchors only.
+# Editable narrative, licensing, notice, repository-navigation, workflow, and
+# generated verification-result files are deliberately outside this manifest.
+# SHA-256 hashes below are package-integrity identifiers, not timestamp proof.
+78d761b40acf86ef3a6095d909a0824b8d6bd16c462e429b7cea6133b0930e67  01_Reference_Implementation/Solar_System_Time_Reference_Resolver_v1_0_4.py
+a9e061f202ac7fc157d4ab9d747693d713ebee3baf34ef2bb66b3ee0aeeb9e57  02_Frozen_Evidence/Solar_System_Time_Evidence_Ledger_v1_0_4.json
+e7d150beb87646375f65068608adddce8b5065ed98b833410c84b4ab8014fefb  03_Verification/Solar_System_Time_Evidence_Verifier_v1_0_4.py
+273042410e8c27b21b25e7f70433e00a17dd1d1d3ee73d0f3806edd226ae9525  04_Interactive_Clock/Solar_System_Clock_v1_0_4.html
+20d94860d064f80b6cef57c4c740c34015c08b187db2fd49bf2ea37fac1fdab4  04_Interactive_Clock/Solar_System_Clock_v1_0_4_Verifier.py

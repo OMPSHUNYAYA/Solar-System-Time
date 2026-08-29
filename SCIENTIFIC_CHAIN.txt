@@ -1,0 +1,20 @@
+SOLAR SYSTEM TIME — PROJECT EVIDENCE CHAIN v1.0.4
+
+Historical project stages recorded in the frozen ledger:
+R1   same-model identifiability                         PASS
+R2   cross-realization basin recovery                   PASS
+R3   frozen chronological calibration                   PASS
+R4   independent analytical ephemeris transfer          PASS
+R5   JPL Horizons precision-ephemeris comparison        PASS
+R6   IMCCE / INPOP source-family comparison             PASS
+R7C  transit-circle observational reserve               PASS (project record)
+R8C  photographic Uranus/Neptune reserve                PASS (project record)
+R8D  widened-search boundary audit                      PASS (project record)
+R8E  project claim-boundary audit                         PASS (historical)
+
+Current interpretation:
+BOUNDED_OBSERVATIONAL_EPOCH_RECONSTRUCTION_RESULT
+
+This chain records project stages. PASS means the declared project gate passed;
+it does not mean independent scientific certification. Independent third-party
+reproduction remains OPEN_NOT_YET_CONFIRMED.

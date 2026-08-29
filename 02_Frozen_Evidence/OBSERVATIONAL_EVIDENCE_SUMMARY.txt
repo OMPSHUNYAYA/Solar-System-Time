@@ -1,0 +1,34 @@
+SOLAR SYSTEM TIME — FROZEN OBSERVATIONAL EVIDENCE SUMMARY
+
+R7C — transit-circle blind reserve
+24/24 within 3 days
+median absolute error: 0.828007 day
+p95 absolute error: 2.154790 days
+maximum absolute error: 2.163750 days
+minimum separated second/best ratio: 9.956303
+score commitment: 6da9b6029aad28666694066b59bdb501a0829da2bacb8a73192bf04924c39d70
+
+R8C — independent photographic Uranus/Neptune blind reserve
+7/7 within 3 days
+7/7 within 7 days
+median absolute error: 0.149884 day (~3.60 h)
+p95 absolute error: 0.164016 day (~3.94 h)
+maximum absolute error: 0.164016 day (~3.94 h)
+minimum separated second/best ratio: 14.391410
+freeze commitment: b5247af065fb58600adc39eed47d87d372c36192fc9ee2170a266c9f9553501c
+prediction commitment: bf4e926d0027ae1a699ac9954d6e6a3f05df9f81c2b0612a4ad50ac55e40705c
+score commitment: e1f3cc123fa3de6fffd5b5f42b266bd631d367e0c4731c0bfdc19058af238f06
+
+R8D — post-blind widened-search stress audit
+search span widened from 10044.747894 days to 30134.243682 days
+same temporal basin: 7/7
+maximum prediction shift: 0.158356 day
+maximum widened-domain truth error: 0.166122 day
+report commitment: 1fd1a3e1317fdbe689dcc1b8aa894dd7f77f600c312da761b50bff2a18e62ccb
+
+R8E — historical project claim-boundary audit
+project claim-boundary audit recorded: PASS
+current package status: BOUNDED_OBSERVATIONAL_EPOCH_RECONSTRUCTION_RESULT
+outside endorsement/certification: NOT CLAIMED
+independent third-party reproduction: OPEN_NOT_YET_CONFIRMED
+audit commitment: 887c17ac8d9acf29b5224d4043fe53745c3516a5110fe85a3e758bbd71fd2327

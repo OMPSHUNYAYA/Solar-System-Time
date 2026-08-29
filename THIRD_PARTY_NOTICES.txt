@@ -1,0 +1,79 @@
+THIRD-PARTY AND PROVENANCE NOTICES
+
+1. General boundary
+
+The package license covers project-authored materials only. Third-party software, libraries, source material, catalogues, services, databases, publications, and other externally governed materials remain subject to their own terms and are not relicensed here.
+
+2. NASA/JPL planetary constants and services
+
+The reference resolver contains a small set of published numerical orbital-element constants for the Earth-Moon barycenter (JPL "EM Bary"), Uranus, and Neptune derived from NASA/JPL Solar System Dynamics approximate planetary-position material. The EM-Bary values are used as the compact observer-orbit proxy. These numerical values are retained as minimum factual scientific inputs required to reproduce the declared low-complexity model.
+
+The interactive Solar System Clock contains the corresponding low-precision Table-1-family orbital-element values for Mercury through Neptune. Its displayed "Earth" label is a visualization label; the underlying low-precision Earth-orbit row follows the JPL EM-Bary approximation used by that element family.
+
+NASA/JPL Horizons was used in earlier declared project verification for a separate precision-ephemeris replication stage. Horizons payloads and bulk JPL ephemeris data are not distributed in this package.
+
+The project does not claim ownership of NASA/JPL source material, services, documentation, ephemerides, or underlying astronomical facts.
+
+Relevant provenance:
+- NASA/JPL Solar System Dynamics, approximate positions of the major planets
+  https://ssd.jpl.nasa.gov/planets/approx_pos.html
+- NASA/JPL Horizons
+  https://ssd.jpl.nasa.gov/horizons/
+
+3. IMCCE / Observatoire de Paris / INPOP
+
+IMCCE Miriade / INPOP was used in a declared independent institutional ephemeris-family replication stage. Miriade/INPOP payloads, software, and bulk ephemeris objects are not distributed in this package.
+
+Relevant provenance:
+- IMCCE Miriade
+  https://ssp.imcce.fr/webservices/miriade/
+
+4. CDS VizieR and observational catalogues
+
+Two real observational source families were used in the observational reconstruction program:
+
+- VizieR catalogue I/334 — W1J00 and W2J00 Transit Circle Catalogs (Rafferty et al., 2016), including solar-system observation tables.
+- VizieR catalogue J/other/OAP/29.155 — Uranus and Neptune astrometric positions (Yizhakevych et al., 2016), based on historical photographic observations associated with the Main Astronomical Observatory of the National Academy of Sciences of Ukraine.
+
+No catalogue table, image plate, bulk catalogue payload, or database extract is redistributed in this package. The evidence ledger records only project-generated metrics, commitments, and minimum source identifiers needed to describe provenance.
+
+CDS VizieR and the original catalogue authors/institutions retain their applicable rights and citation requirements.
+
+Relevant service:
+https://vizier.cds.unistra.fr/
+
+5. Swiss Ephemeris / pyswisseph
+
+Swiss Ephemeris / pyswisseph was used in an earlier declared analytical-ephemeris transfer stage. Neither Swiss Ephemeris source code, binaries, ephemeris files, nor pyswisseph are included in this package or required by the included reference resolver.
+
+Swiss Ephemeris / pyswisseph remains subject to its own applicable rights and license terms. This package does not relicense it.
+
+6. Scientific publications and factual inputs
+
+Names, dates, identifiers, numerical measurements, orbital constants, coordinates, and similar scientific facts may be cited or minimally reproduced where needed for reproducibility. No ownership claim is made over underlying scientific facts.
+
+The package does not reproduce substantial third-party publication text, modern translations, catalogue databases, or complete third-party source objects.
+
+7. Copyright boundary
+
+Project-authored materials: Copyright © 2026 Shunyaya Framework contributors, subject to the package license map and applicable Apache-2.0 / CC BY-NC 4.0 terms.
+
+Third-party copyright, database rights, attribution requirements, licenses, contractual terms, institutional terms of use, and other applicable rights remain with their respective owners and are not overridden by the package LICENSE.
+
+8. No rights override
+
+Nothing in the package LICENSE or documentation overrides third-party copyright, database rights, attribution requirements, licenses, contractual terms, or other applicable rights.
+
+
+INTERACTIVE CLOCK
+-----------------
+The bundled Solar System Clock v1.0.4 is project-authored and self-contained.
+It does not bundle third-party JavaScript, browser libraries, images, stylesheets,
+catalogue tables, or network-delivered runtime assets.
+
+
+9. Astrometric-coordinate interpretation
+
+The active J2000 Uranus/Neptune resolver applies retarded planetary light-time.
+Stellar aberration is not applied to this astrometric-coordinate lane. JPL
+Horizons documentation distinguishes astrometric from apparent coordinates.

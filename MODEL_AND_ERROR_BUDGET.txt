@@ -1,0 +1,79 @@
+SOLAR SYSTEM TIME — MODEL AND ERROR BUDGET v1.0.4
+
+Purpose
+-------
+This note separates model fidelity, observation uncertainty, and numerical
+search granularity. It is not a substitute for an end-to-end reproduction on
+the original observation inputs.
+
+1. Orbital model
+----------------
+The active resolver uses the NASA/JPL Solar System Dynamics approximate
+Keplerian element set for the Earth-Moon barycenter (EM Bary), Uranus, and
+Neptune. The EM-Bary row is used as the compact observer-orbit proxy; the
+reference implementation does not model the Earth-Moon-barycenter-to-geocenter
+displacement. JPL states that these approximate elements are fitted for
+declared intervals and are not valid outside those intervals. This package
+uses the 1800-2050 element set and refuses searches outside that window by
+default.
+
+JPL nominal 1800-2050 heliocentric-position approximation errors include:
+- Uranus: longitude ~50 arcsec, latitude ~2 arcsec, distance ~1,000,000 km;
+- Neptune: longitude ~10 arcsec, latitude ~1 arcsec, distance ~200,000 km.
+
+Source: NASA/JPL Solar System Dynamics, Approximate Positions of the Planets
+https://ssd.jpl.nasa.gov/planets/approx_pos.html
+
+2. Light-time
+-------------
+The v1.0.4 resolver evaluates the compact observer-orbit proxy (JPL EM Bary)
+at observation time and the planet at retarded time jd - range/c, iterating
+the light-time solution. This is the declared approximation used by the J2000
+astrometric-coordinate lane.
+
+3. Aberration / coordinate contract
+-----------------------------------
+For this J2000/ICRF astrometric-coordinate contract, stellar aberration and an
+equator/equinox-of-date transformation are intentionally not applied. JPL
+Horizons distinguishes its astrometric output from Earth-based apparent
+coordinates, for which additional apparent-position corrections are applied.
+
+Source: NASA/JPL Horizons System documentation
+https://ssd.jpl.nasa.gov/horizons/manual.html
+
+4. Time-scale approximation
+----------------------------
+The JPL approximate-element formulae use an ephemeris-time argument (JDTDB).
+This compact resolver treats the supplied Julian-date search coordinate
+directly and does not implement an explicit UTC/UT1 <-> TDB conversion. At the
+declared low-precision/hour-scale use level this is a secondary effect, but a
+precision implementation should use explicit time-scale handling.
+
+5. Numerical search granularity
+-------------------------------
+The reference search uses:
+- 1 day coarse sweep;
+- 0.25 day local refinement;
+- 15 minute final grid.
+
+Therefore the reference implementation has a deliberate finite-grid floor. A
+precision implementation should use a continuous/local optimizer after basin
+identification rather than interpreting the 15-minute grid as a physical limit.
+
+6. Observation uncertainty
+--------------------------
+Astrometric measurement uncertainty propagates through the inverse geometry to
+epoch uncertainty. The exact conversion is geometry- and epoch-dependent. No
+universal arcsecond-to-hour conversion is claimed here.
+
+7. Interpreting the historical ~3.6 h median
+-------------------------------------------
+The reported ~3.6 h photographic-reserve median is a historical project metric
+recorded in the evidence ledger. The current package does not contain the raw
+reserve observations, so this package alone cannot decompose that number into
+model, measurement, and search contributions.
+
+8. Precision boundary
+---------------------
+For precision ephemerides use an appropriate high-precision service/model such
+as JPL Horizons. The compact resolver and HTML clock are reference/demo tools.

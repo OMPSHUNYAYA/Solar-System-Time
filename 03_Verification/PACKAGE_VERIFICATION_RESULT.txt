@@ -1,0 +1,41 @@
+SOLAR SYSTEM TIME SCIENTIFIC PACKAGE v1.0.4 — BUILD VERIFICATION
+
+Reference resolver self-test: 9/9 PASS
+Ledger & selected key-artifact integrity verifier: 17/17 PASS
+Solar System Clock structure/mobile verifier: 33/33 PASS
+Clock JavaScript syntax: PASS
+Selected key-artifact SHA-256 manifest verification: PASS
+Missing-artifact graceful failure behavior: PASS
+README relative-link audit: PASS
+Version and stale-reference audit: PASS
+License-map and Apache-2.0 text completeness audit: PASS
+Scientific wording/provenance consistency audit: PASS
+1800-2050 model-validity boundary audit: PASS
+Python compilation audit: PASS
+JSON parse audit: PASS
+
+SHA-256 manifest scope
+---------------------
+The manifest covers selected computational and machine-readable evidence anchors:
+- reference resolver;
+- machine-readable frozen evidence ledger;
+- ledger/key-artifact integrity verifier;
+- standalone Solar System Clock HTML;
+- Solar System Clock structure verifier.
+
+Editable narrative, licensing, notice, repository-navigation, workflow, and this
+build-verification result are deliberately outside the key-artifact manifest.
+
+Scientific/copyright boundary
+-----------------------------
+The resolver uses the JPL Table-1 Earth-Moon-barycenter row as a compact
+observer-orbit proxy and declares the associated approximation. Explicit
+UTC/UT1 <-> TDB conversion is outside the compact reference implementation.
+The full Apache License 2.0 text is included in the root LICENSE for the
+project-authored software; project-authored documentation is mapped to
+CC BY-NC 4.0; third-party rights remain separate and are documented in
+THIRD_PARTY_NOTICES.txt.
+
+Verifier boundaries are declared in the package documentation. These checks do
+not independently reproduce the historical observational results and the hashes
+do not establish an independently controlled pre-truth timestamp.

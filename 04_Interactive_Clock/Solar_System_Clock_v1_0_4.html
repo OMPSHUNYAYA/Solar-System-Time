@@ -1,0 +1,556 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Solar System Clock v1.0.4</title>
+<style>
+:root{
+  --bg:#05080d;
+  --panel:#091019;
+  --panel2:#0b131e;
+  --line:#24435d;
+  --line2:#315d7d;
+  --text:#f3f6fa;
+  --muted:#91a2b5;
+  --cyan:#7ed6ff;
+  --gold:#f1c15d;
+  --green:#63e79a;
+  --purple:#b58aff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
+button,input{font:inherit;color:inherit}
+.topbar{
+  height:44px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 14px;border-bottom:1px solid #162635;background:#04070b;position:relative;z-index:20
+}
+.brand{display:flex;align-items:center;gap:9px}
+.sunmark{width:10px;height:10px;border-radius:50%;background:#ffd86d;box-shadow:0 0 14px #e4ad3e}
+.brand-title{font-size:15px;font-weight:750;letter-spacing:-.015em}
+.version{font-size:10px;color:#9da8b7;border:1px solid #263442;border-radius:999px;padding:3px 7px}
+.top-actions{display:flex;gap:7px}
+.top-btn{
+  height:30px;border:1px solid #2a3b4c;background:#0b1118;border-radius:8px;
+  padding:0 10px;font-size:10px;cursor:pointer
+}
+
+.hero{
+  height:calc(100dvh - 44px);
+  display:grid;
+  grid-template-columns:minmax(175px,21vw) minmax(0,1fr) minmax(235px,25vw);
+  grid-template-rows:minmax(0,1fr) 66px;
+  gap:8px;padding:8px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 44%,rgba(31,56,83,.13),transparent 34%),
+    #05080d;
+}
+.left,.right{min-height:0;display:flex;flex-direction:column;gap:8px}
+.card{
+  border:1px solid var(--line);border-radius:12px;background:linear-gradient(180deg,#09111a,#071019);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.015);overflow:hidden
+}
+.card-head{
+  height:32px;display:flex;align-items:center;padding:0 10px;border-bottom:1px solid #173047;
+  color:#8fcfff;font-size:10px;font-weight:750;letter-spacing:.04em;text-transform:uppercase
+}
+.card-body{padding:10px;font-size:11px;color:#c4ced8;line-height:1.5}
+.epoch-main{text-align:center;padding:10px 8px 7px}
+.epoch-date{font-size:16px;font-weight:700;letter-spacing:-.02em}
+.epoch-time{font-size:25px;font-weight:750;font-variant-numeric:tabular-nums;margin-top:2px}
+.epoch-jd{font-size:10px;color:#8798aa;margin-top:5px}
+.pills{display:flex;gap:7px;padding:0 8px 8px}
+.pill{
+  flex:1;text-align:center;border:1px solid #7140a7;border-radius:7px;padding:5px 4px;
+  font-size:9px;font-weight:700;color:#cfb6ff;background:#120b1d
+}
+.pill.live{border-color:#1c9e57;color:#72ec9f;background:#07190f}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:3px 8px}
+.kv span:nth-child(odd){color:#8295a8}
+.kv b{font-weight:650;color:#e7eef5}
+.fp{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:9px;word-break:break-all;color:#b9c4d0}
+
+.center{
+  position:relative;min-width:0;min-height:0;border:3px solid rgba(241,193,93,.92);
+  border-radius:17px;overflow:hidden;background:#03070c;
+  box-shadow:0 0 0 1px rgba(255,238,181,.18),0 0 18px rgba(241,193,93,.22),inset 0 0 24px rgba(241,193,93,.05)
+}
+#space{position:absolute;inset:0;width:100%;height:100%;display:block}
+.center::after{content:"";position:absolute;inset:7px;border:1px solid rgba(255,232,167,.12);border-radius:11px;pointer-events:none}
+.stage-badge{
+  position:absolute;z-index:5;left:50%;top:9px;transform:translateX(-50%);
+  padding:5px 12px;border:1px solid #1596ca;border-radius:999px;background:rgba(3,10,16,.84);
+  font-size:9px;font-weight:750;color:#8bdcff;letter-spacing:.04em;white-space:nowrap
+}
+.stage-sub{
+  position:absolute;z-index:5;left:50%;top:36px;transform:translateX(-50%);
+  font-size:9px;color:#78899a;white-space:nowrap
+}
+.stage-note{
+  position:absolute;z-index:5;left:12px;bottom:8px;font-size:9px;color:#7c8c9d
+}
+
+.longitudes{flex:1;display:flex;flex-direction:column;min-height:0}
+.lon-head{
+  display:grid;grid-template-columns:minmax(82px,1fr) 86px 72px;
+  gap:8px;padding:7px 10px;font-size:9px;color:#8091a3;font-weight:700;border-bottom:1px solid #173047
+}
+#phaseList{flex:1;min-height:0;display:flex;flex-direction:column}
+.lon-row{
+  flex:1;display:grid;grid-template-columns:minmax(88px,1fr) 96px 82px;
+  align-items:center;gap:8px;padding:4px 10px;border-bottom:1px solid rgba(54,91,119,.24)
+}
+.lon-row:last-child{border-bottom:0}
+.planet-cell{display:flex;align-items:center;gap:8px;min-width:0}
+.dot{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
+.pname{font-size:11px;font-weight:760;white-space:nowrap}
+.deg{font-size:11px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:700;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.rate{font-size:9px;color:var(--green);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.delta{font-size:8px;color:#8db9df;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;margin-top:2px}
+.why{font-size:10px;line-height:1.45;color:#c4ced8}
+.why strong{color:#f0f4f8}
+
+.controls{
+  grid-column:1/-1;display:grid;grid-template-columns:104px 104px minmax(345px,1fr) minmax(275px,.86fr);
+  gap:7px;align-items:center;padding:7px;border:1px solid var(--line);border-radius:12px;
+  background:#071019
+}
+.ctrl-btn{
+  height:46px;border:1px solid #314458;border-radius:9px;background:#0b121a;
+  font-size:12px;font-weight:760;cursor:pointer;padding:0 12px;white-space:nowrap
+}
+.ctrl-btn.now{border-color:#16a452;color:#75eca2;background:#06190f}
+.ctrl-btn.pause{border-color:#7546a8;color:#ddc9ff;background:#120b1b}
+.speed-wrap{display:flex;align-items:center;gap:5px;min-width:0;padding:0 7px;border-left:1px solid #172431;border-right:1px solid #172431}
+.speed-label{font-size:10px;font-weight:760;color:#91c9ef;margin-right:5px;white-space:nowrap}
+.speed-chip{
+  height:42px;min-width:48px;border:1px solid #2b3d4e;border-radius:8px;background:#091019;
+  color:#c7d1dc;font-size:11px;font-weight:700;cursor:pointer
+}
+.speed-chip.active{border-color:#1b9d55;color:#71eaa0;background:#06170d}
+.moment{display:flex;gap:5px;min-width:0}
+#dateInput{
+  min-width:0;flex:1;height:44px;border:1px solid #2b3d4e;border-radius:8px;background:#0a1118;
+  padding:0 10px;font-size:11px
+}
+#dateInput::-webkit-calendar-picker-indicator{filter:invert(1);opacity:.7}
+.smallbtn{width:40px;padding:0}
+.toast{
+  position:fixed;right:16px;bottom:16px;z-index:50;padding:10px 12px;border:1px solid #315d7d;
+  background:#09111a;border-radius:9px;font-size:11px;color:#dce6ef;opacity:0;transform:translateY(10px);transition:.18s;pointer-events:none
+}
+.toast.show{opacity:1;transform:none}
+
+.below{max-width:1050px;margin:0 auto;padding:70px 24px}
+.below h2{font-size:28px;letter-spacing:-.025em;margin:0 0 14px}
+.below p{color:#b8c2cd;line-height:1.65}
+footer{max-width:1050px;margin:0 auto;padding:25px 24px 30px;border-top:1px solid #172431;color:#6f7e8f;font-size:11px;display:flex;justify-content:space-between}
+
+/* Compact laptop: preserve readability; hide only secondary information. */
+@media(max-width:900px){
+  .hero{grid-template-columns:150px minmax(0,1fr) 205px;gap:6px;padding:6px}
+  .card-head{font-size:9px;padding:0 8px}
+  .card-body{font-size:10px;padding:8px}
+  .epoch-date{font-size:14px}.epoch-time{font-size:22px}
+  .lon-head,.lon-row{grid-template-columns:minmax(72px,1fr) 75px 63px;gap:5px;padding-left:7px;padding-right:7px}
+  .pname,.deg{font-size:9px}.rate{font-size:8px}
+  .controls{grid-template-columns:88px 88px minmax(285px,1fr) minmax(230px,.82fr);gap:5px;padding:5px}
+  .ctrl-btn{height:42px;padding:0 8px;font-size:10px}
+  .speed-chip{height:38px;min-width:40px;padding:0 5px;font-size:9px}
+  .speed-label{display:none}
+}
+@media(max-height:680px){
+  .topbar{height:38px}
+  .hero{height:calc(100dvh - 38px);grid-template-rows:minmax(0,1fr) 50px;padding:5px}
+  .brand-title{font-size:13px}
+  .left .card:nth-child(3),.left .card:nth-child(4){display:none}
+  .card-head{height:28px;font-size:9px}
+  .card-body{font-size:10px;padding:7px}
+  .epoch-main{padding:6px 7px 4px}
+  .epoch-date{font-size:13px}.epoch-time{font-size:21px}.epoch-jd{font-size:8px}
+  .pills{padding:0 6px 6px}.pill{font-size:8px;padding:4px 2px}
+  .lon-head{padding-top:5px;padding-bottom:5px}
+  .lon-row{padding-top:2px;padding-bottom:2px}
+  .pname,.deg{font-size:9px}.rate{font-size:8px}
+  .controls{grid-template-columns:82px 82px minmax(265px,1fr) minmax(215px,.80fr)}
+  .ctrl-btn{height:40px;font-size:10px}
+  .speed-chip{height:36px;min-width:38px;font-size:9px}
+  #dateInput{height:40px;font-size:10px}
+  .stage-badge{font-size:8px;padding:4px 9px}
+  .stage-sub,.stage-note{font-size:8px}
+}
+/* Phone layout: stack the instrument and panels vertically; never require horizontal scrolling. */
+@media(max-width:760px){
+  html,body{height:auto;min-height:100%;overflow-x:hidden}
+  .topbar{height:44px;padding:0 9px;position:sticky;top:0}
+  .brand{gap:6px;min-width:0}
+  .brand-title{font-size:12px;white-space:nowrap}
+  .version{font-size:8px;padding:2px 5px}
+  .top-actions{gap:4px}
+  .top-btn{height:28px;padding:0 7px;font-size:9px}
+
+  .hero{
+    height:auto;min-height:calc(100dvh - 44px);
+    display:flex;flex-direction:column;
+    gap:8px;padding:7px;overflow:visible;
+  }
+  .center{
+    order:1;width:100%;height:clamp(340px,102vw,430px);
+    min-height:340px;flex:0 0 auto;
+  }
+  .controls{
+    order:2;width:100%;display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:6px;padding:6px;
+  }
+  .ctrl-btn{height:42px;font-size:11px}
+  .speed-wrap{
+    grid-column:1/-1;width:100%;padding:0 2px 4px;
+    border-left:0;border-right:0;overflow-x:auto;overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;scrollbar-width:thin;
+  }
+  .speed-label{display:none}
+  .speed-chip{height:38px;min-width:46px;flex:1 0 46px;font-size:9px}
+  .moment{grid-column:1/-1;width:100%;gap:5px}
+  #dateInput{height:42px;font-size:10px;padding:0 7px}
+  .smallbtn{width:42px;min-width:42px;padding:0}
+
+  .left{order:3;width:100%;display:flex;gap:8px}
+  .right{order:4;width:100%;display:flex;gap:8px}
+  .left .card:nth-child(3),.left .card:nth-child(4){display:block}
+  .card{flex:0 0 auto}
+  .left .card,.right .card{width:100%}
+  .longitudes{min-height:430px}
+  #phaseList{min-height:360px}
+  .lon-head{grid-template-columns:minmax(88px,1fr) 104px 84px;gap:5px;padding:7px 8px}
+  .lon-row{min-height:43px;grid-template-columns:minmax(88px,1fr) 104px 84px;gap:5px;padding:5px 8px;flex:1}
+  .pname,.deg{font-size:10px}.rate{font-size:8px}.delta{font-size:8px}
+
+  .stage-badge{max-width:calc(100% - 18px);font-size:7.5px;padding:4px 7px;overflow:hidden;text-overflow:ellipsis}
+  .stage-sub{top:34px;max-width:calc(100% - 24px);font-size:8px;overflow:hidden;text-overflow:ellipsis}
+  .stage-note{left:9px;right:9px;bottom:7px;font-size:8px;white-space:normal;text-align:center}
+
+  .below{padding:42px 16px}
+  .below h2{font-size:22px}
+  footer{padding:20px 16px 24px;gap:10px;flex-direction:column}
+}
+
+@media(max-width:380px){
+  .brand-title{font-size:11px}
+  .version{display:none}
+  .top-btn{padding:0 6px}
+  .center{height:clamp(330px,108vw,390px);min-height:330px}
+  .lon-head,.lon-row{grid-template-columns:minmax(78px,1fr) 94px 76px;padding-left:6px;padding-right:6px}
+  .pname,.deg{font-size:9px}.rate,.delta{font-size:7.5px}
+  .speed-chip{min-width:44px;flex-basis:44px}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="sunmark"></span>
+    <span class="brand-title">SOLAR SYSTEM CLOCK</span>
+    <span class="version">v1.0.4</span>
+  </div>
+  <div class="top-actions">
+    <button class="top-btn" id="helpBtn">? HELP</button>
+    <button class="top-btn" id="fullscreenBtn">⛶</button>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <aside class="left">
+    <div class="card">
+      <div class="card-head">Current epoch</div>
+      <div class="epoch-main">
+        <div class="epoch-date" id="epochDate">—</div>
+        <div class="epoch-time" id="clockTime">—</div>
+        <div class="epoch-jd">UTC • <span id="epochJD">JD —</span></div>
+      </div>
+      <div class="pills">
+        <div class="pill live" id="modePill">SIMULATED</div>
+        <div class="pill" id="flowPill">RUNNING</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">Time flow</div>
+      <div class="card-body">
+        <div><span style="color:#55e491">●</span> <b id="speedHuman">30 days/s</b></div>
+        <div style="margin-top:4px">Every planet is recalculated from this same displayed epoch.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">Reference</div>
+      <div class="card-body kv">
+        <span>Frame</span><b>Heliocentric ecliptic</b>
+        <span>Epoch basis</span><b>J2000 elements</b>
+        <span>Visual distance</span><b>Compressed</b>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">Display fingerprint (non-cryptographic)</div>
+      <div class="card-body"><div class="fp" id="fingerprint">—</div></div>
+    </div>
+  </aside>
+
+  <div class="center">
+    <canvas id="space"></canvas>
+    <div class="stage-badge" id="stageBadge">SIMULATED EPOCH • LOW-PRECISION ORBITAL MODEL</div>
+    <div class="stage-sub">Planetary configuration changes continuously with epoch.</div>
+    <div class="stage-note">LIVE MOTION • planetary degrees and positions are synchronized to the displayed epoch</div>
+  </div>
+
+  <aside class="right">
+    <div class="card longitudes">
+      <div class="card-head">Planetary longitudes — live</div>
+      <div class="lon-head"><span>PLANET</span><span style="text-align:right">LONGITUDE</span><span style="text-align:right">DAILY RATE</span></div>
+      <div id="phaseList"></div>
+    </div>
+    <div class="card">
+      <div class="card-head">Why it moves</div>
+      <div class="card-body why" id="whyText"><strong>LIVE:</strong> change the epoch and the entire Solar-System state changes with it.</div>
+    </div>
+  </aside>
+
+  <div class="controls">
+    <button class="ctrl-btn now" id="nowBtn">NOW</button>
+    <button class="ctrl-btn pause" id="playBtn">PAUSE</button>
+
+    <div class="speed-wrap">
+      <span class="speed-label">SPEED</span>
+      <button class="speed-chip" data-speed="1">1×</button>
+      <button class="speed-chip" data-speed="60">1m/s</button>
+      <button class="speed-chip" data-speed="3600">1h/s</button>
+      <button class="speed-chip" data-speed="86400">1d/s</button>
+      <button class="speed-chip active" data-speed="2592000">30d/s</button>
+      <button class="speed-chip" data-speed="31557600">1y/s</button>
+    </div>
+
+    <div class="moment">
+      <input id="dateInput" type="datetime-local" step="1">
+      <button class="ctrl-btn smallbtn" id="setDateBtn">SET</button>
+      <button class="ctrl-btn smallbtn" id="labelsBtn" title="Labels">Aa</button>
+      <button class="ctrl-btn smallbtn" id="trailsBtn" title="Trails">•••</button>
+    </div>
+  </div>
+</section>
+
+<section class="below">
+  <h2>Planetary configuration can be viewed as a structural clock state. <span style="opacity:.72">Displayed positions use a low-precision approximate orbital model intended for visualization, not precision ephemerides.</span></h2>
+  <p>Solar System Time treats a declared planetary configuration as a structural time state. The forward direction resolves an epoch into a Solar-System state; the inverse direction searches a declared historical interval for the epoch most consistent with an observed state.</p><p><strong>Demonstration default:</strong> the clock opens at the current epoch and advances at 30 days per second so the changing Solar-System state is immediately visible. Press <strong>NOW</strong> at any time to return to current UTC at 1× real time.</p>
+</section>
+</main>
+
+<footer>
+  <span>Solar System Clock v1.0.4 • standalone reference demonstration</span>
+  <span style="opacity:.72">Powered by Shunyaya Framework</span>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+
+const TAU=Math.PI*2, DEG=Math.PI/180, J2000=2451545.0, CENTURY=36525.0;
+
+const ELEMENTS={
+Mercury:[[0.38709927,0.00000037],[0.20563593,0.00001906],[7.00497902,-0.00594749],[252.25032350,149472.67411175],[77.45779628,0.16047689],[48.33076593,-0.12534081]],
+Venus:[[0.72333566,0.00000390],[0.00677672,-0.00004107],[3.39467605,-0.00078890],[181.97909950,58517.81538729],[131.60246718,0.00268329],[76.67984255,-0.27769418]],
+Earth:[[1.00000261,0.00000562],[0.01671123,-0.00004392],[-0.00001531,-0.01294668],[100.46457166,35999.37244981],[102.93768193,0.32327364],[0,0]],
+Mars:[[1.52371034,0.00001847],[0.09339410,0.00007882],[1.84969142,-0.00813131],[-4.55343205,19140.30268499],[-23.94362959,0.44441088],[49.55953891,-0.29257343]],
+Jupiter:[[5.20288700,-0.00011607],[0.04838624,-0.00013253],[1.30439695,-0.00183714],[34.39644051,3034.74612775],[14.72847983,0.21252668],[100.47390909,0.20469106]],
+Saturn:[[9.53667594,-0.00125060],[0.05386179,-0.00050991],[2.48599187,0.00193609],[49.95424423,1222.49362201],[92.59887831,-0.41897216],[113.66242448,-0.28867794]],
+Uranus:[[19.18916464,-0.00196176],[0.04725744,-0.00004397],[0.77263783,-0.00242939],[313.23810451,428.48202785],[170.95427630,0.40805281],[74.01692503,0.04240589]],
+Neptune:[[30.06992276,0.00026291],[0.00859048,0.00005105],[1.77004347,0.00035372],[-55.12002969,218.45945325],[44.96476227,-0.32241464],[131.78422574,-0.00508664]]
+};
+
+const PLANETS=[
+{name:"Mercury",r:.387,size:4.2,c:"#b8b8b8"},
+{name:"Venus",r:.723,size:5.2,c:"#f0c33f"},
+{name:"Earth",r:1,size:5.5,c:"#58a9f3"},
+{name:"Mars",r:1.524,size:4.9,c:"#ef6542"},
+{name:"Jupiter",r:5.203,size:7.4,c:"#d9984d"},
+{name:"Saturn",r:9.537,size:6.8,c:"#e0c268"},
+{name:"Uranus",r:19.189,size:5.7,c:"#57d8d8"},
+{name:"Neptune",r:30.07,size:5.8,c:"#5b82ff"}
+];
+
+function wrap360(x){x%=360;return x<0?x+360:x}
+function jdFromDate(d){return d.getTime()/86400000+2440587.5}
+function xyz(name,jd){
+  const T=(jd-J2000)/CENTURY,E=ELEMENTS[name],v=E.map(q=>q[0]+q[1]*T);
+  const [a,e,I,L,lp,node]=v;
+  let M=(wrap360(L-lp+180)-180)*DEG,Ec=M;
+  for(let k=0;k<30;k++){const q=(Ec-e*Math.sin(Ec)-M)/(1-e*Math.cos(Ec));Ec-=q;if(Math.abs(q)<1e-14)break}
+  const xp=a*(Math.cos(Ec)-e),yp=a*Math.sqrt(Math.max(0,1-e*e))*Math.sin(Ec);
+  const w=(lp-node)*DEG,O=node*DEG,inc=I*DEG,cw=Math.cos(w),sw=Math.sin(w),co=Math.cos(O),so=Math.sin(O),ci=Math.cos(inc),si=Math.sin(inc);
+  return[(cw*co-sw*so*ci)*xp+(-sw*co-cw*so*ci)*yp,(cw*so+sw*co*ci)*xp+(-sw*so+cw*co*ci)*yp,sw*si*xp+cw*si*yp]
+}
+function helioLon(name,jd){const q=xyz(name,jd);return wrap360(Math.atan2(q[1],q[0])/DEG)}
+function hashLike(str){let h1=2166136261>>>0,h2=2654435769>>>0;for(let i=0;i<str.length;i++){h1=Math.imul(h1^str.charCodeAt(i),16777619)>>>0;h2=(Math.imul(h2^str.charCodeAt(i),2246822519)+3266489917)>>>0}return h1.toString(16).padStart(8,"0")+"-"+h2.toString(16).padStart(8,"0")}
+function localValue(d){const z=n=>String(n).padStart(2,"0");return`${d.getUTCFullYear()}-${z(d.getUTCMonth()+1)}-${z(d.getUTCDate())}T${z(d.getUTCHours())}:${z(d.getUTCMinutes())}:${z(d.getUTCSeconds())}`}
+
+let simDate=new Date(),playing=true,speed=2592000,labels=true,showTrails=true,lastFrame=performance.now();
+let deltaReferenceJD=jdFromDate(simDate), deltaReferenceLongitudes={};
+for(const p of PLANETS)deltaReferenceLongitudes[p.name]=helioLon(p.name,deltaReferenceJD);
+const canvas=document.getElementById("space"),ctx=canvas.getContext("2d");
+let W=0,H=0,DPR=1;
+
+function resize(){
+  DPR=Math.min(devicePixelRatio||1,2);W=canvas.clientWidth;H=canvas.clientHeight;
+  canvas.width=Math.max(1,Math.round(W*DPR));canvas.height=Math.max(1,Math.round(H*DPR));
+  ctx.setTransform(DPR,0,0,DPR,0,0)
+}
+addEventListener("resize",resize);resize();
+
+const stars=Array.from({length:240},(_,i)=>({
+  x:Math.abs(Math.sin(i*12.9898)*43758.5453)%1,
+  y:Math.abs(Math.sin((i+19)*78.233)*19341.17)%1,
+  r:.35+(Math.abs(Math.sin((i+61)*4.733))*1.05),
+  o:.13+(Math.abs(Math.sin((i+7)*1.733))*.5)
+}));
+
+function orbitRadius(r){
+  const m=Math.min(W,H);
+  const max=Math.max(105,Math.min(m*.39,235));
+  return 18+Math.log1p(r)*max/Math.log1p(30.5)
+}
+
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle="#03070c";ctx.fillRect(0,0,W,H);
+  for(const s of stars){ctx.globalAlpha=s.o;ctx.fillStyle="#d9e7f5";ctx.beginPath();ctx.arc(s.x*W,s.y*H,s.r,0,TAU);ctx.fill()}
+  ctx.globalAlpha=1;
+
+  const cx=W*.50,cy=H*.54,yScale=.78,jd=jdFromDate(simDate);
+  const dial=Math.min(W,H)*.43;
+
+  ctx.strokeStyle="rgba(241,193,93,.28)";ctx.lineWidth=1.2;ctx.beginPath();ctx.ellipse(cx,cy,dial,dial*yScale,0,0,TAU);ctx.stroke();
+  for(let k=0;k<72;k++){
+    const a=k/72*TAU-Math.PI/2,major=k%18===0,r1=dial-(major?8:4);
+    ctx.strokeStyle=major?"rgba(245,230,190,.45)":"rgba(230,240,250,.13)";
+    ctx.beginPath();ctx.moveTo(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1*yScale);ctx.lineTo(cx+Math.cos(a)*dial,cy+Math.sin(a)*dial*yScale);ctx.stroke()
+  }
+
+  const pos={};
+  for(const p of PLANETS){
+    const rr=orbitRadius(p.r),a=helioLon(p.name,jd)*DEG-Math.PI/2;
+    pos[p.name]={x:cx+Math.cos(a)*rr,y:cy+Math.sin(a)*rr*yScale,a,rr};
+    ctx.strokeStyle=p.r<2?"rgba(255,255,255,.17)":p.r<10?"rgba(255,255,255,.11)":"rgba(255,255,255,.075)";
+    ctx.lineWidth=1;ctx.beginPath();ctx.ellipse(cx,cy,rr,rr*yScale,0,0,TAU);ctx.stroke()
+  }
+
+  const glow=ctx.createRadialGradient(cx,cy,0,cx,cy,34);
+  glow.addColorStop(0,"rgba(255,249,213,1)");glow.addColorStop(.18,"rgba(248,202,91,.95)");glow.addColorStop(1,"rgba(238,163,34,0)");
+  ctx.fillStyle=glow;ctx.beginPath();ctx.arc(cx,cy,34,0,TAU);ctx.fill();
+  ctx.fillStyle="#f2c45d";ctx.beginPath();ctx.arc(cx,cy,7,0,TAU);ctx.fill();
+
+  for(const p of PLANETS){
+    const q=pos[p.name];
+    if(showTrails){
+      const span=Math.min(.48,.12+Math.log1p(Math.max(1,speed))/34);
+      ctx.strokeStyle=p.c+"99";ctx.lineWidth=2.4;
+      ctx.beginPath();ctx.ellipse(cx,cy,q.rr,q.rr*yScale,0,q.a-span,q.a);ctx.stroke();
+      for(let m=1;m<=5;m++){
+        const a=q.a-span*m/6,tx=cx+Math.cos(a)*q.rr,ty=cy+Math.sin(a)*q.rr*yScale;
+        ctx.globalAlpha=.18+.12*m;ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(tx,ty,1.1,0,TAU);ctx.fill()
+      }
+      ctx.globalAlpha=1
+    }
+    ctx.shadowBlur=13;ctx.shadowColor=p.c;ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(q.x,q.y,p.size,0,TAU);ctx.fill();ctx.shadowBlur=0;
+    if(p.name==="Saturn"){ctx.strokeStyle="rgba(236,218,160,.72)";ctx.lineWidth=1.2;ctx.beginPath();ctx.ellipse(q.x,q.y,p.size*1.85,p.size*.58,-.18,0,TAU);ctx.stroke()}
+    if(labels){ctx.font="700 10px system-ui";ctx.fillStyle="rgba(239,245,251,.94)";ctx.fillText(p.name,q.x+p.size+5,q.y-4)}
+  }
+}
+
+function updateUI(){
+  const jd=jdFromDate(simDate),iso=simDate.toISOString(),nearNow=Math.abs(simDate-Date.now())<5000;
+  const live=playing&&speed===1&&nearNow;
+
+  document.getElementById("epochDate").textContent=iso.slice(0,10);
+  document.getElementById("clockTime").textContent=iso.slice(11,19);
+  document.getElementById("epochJD").textContent="JD "+jd.toFixed(5);
+  document.getElementById("modePill").textContent=live?"LIVE UTC":"SIMULATED";
+  document.getElementById("flowPill").textContent=playing?"RUNNING":"PAUSED";
+  document.getElementById("stageBadge").textContent=(live?"LIVE UTC":"SIMULATED EPOCH")+" • LOW-PRECISION ORBITAL MODEL";
+
+  const speedLabel=speed===1?"1× real time":speed===60?"1 min/s":speed===3600?"1 hour/s":speed===86400?"1 day/s":speed===2592000?"30 days/s":"1 year/s";
+  document.getElementById("speedHuman").textContent=playing?speedLabel:"Paused";
+
+  const phaseList=document.getElementById("phaseList");
+  const sig=[];
+  let html="";
+  for(const p of PLANETS){
+    const lon=helioLon(p.name,jd),nxt=helioLon(p.name,jd+1);
+    let rate=nxt-lon;if(rate>180)rate-=360;if(rate<-180)rate+=360;
+    let delta=lon-deltaReferenceLongitudes[p.name];if(delta>180)delta-=360;if(delta<-180)delta+=360;
+    sig.push(p.name+":"+lon.toFixed(7));
+    html+=`<div class="lon-row">
+      <div class="planet-cell"><span class="dot" style="background:${p.c};box-shadow:0 0 7px ${p.c}88"></span><span class="pname" style="color:${p.c}">${p.name.toUpperCase()}</span></div>
+      <div class="deg">${lon.toFixed(7)}°</div>
+      <div><div class="rate">${rate>=0?"→":"←"} ${Math.abs(rate).toFixed(4)}°/d</div><div class="delta">Δ ${delta>=0?"+":""}${delta.toFixed(7)}°</div></div>
+    </div>`
+  }
+  phaseList.innerHTML=html;
+  document.getElementById("fingerprint").textContent=hashLike(sig.join("|"));
+
+  document.getElementById("whyText").innerHTML=live
+    ? "<strong>LIVE:</strong> the 7-decimal longitude and Δ values visibly tick with UTC. Use 1d/s, 30d/s or 1y/s to watch the orbital configuration sweep."
+    : "<strong>SIMULATION:</strong> longitude numbers, Δ values, trails and planet positions are all driven by this displayed epoch.";
+
+  const elapsedDays=Math.abs(jd-deltaReferenceJD);
+  const thresholdDays=Math.max(1/86400, speed/86400);
+  if(elapsedDays>=thresholdDays){
+    deltaReferenceJD=jd;
+    for(const p of PLANETS)deltaReferenceLongitudes[p.name]=helioLon(p.name,jd);
+  }
+}
+
+function animate(t){
+  const dt=(t-lastFrame)/1000;lastFrame=t;
+  if(playing)simDate=new Date(simDate.getTime()+dt*speed*1000);
+  draw();
+  if(!animate.lastUI||t-animate.lastUI>80){updateUI();animate.lastUI=t}
+  requestAnimationFrame(animate)
+}
+
+document.getElementById("dateInput").value=localValue(simDate);
+
+document.getElementById("nowBtn").onclick=()=>{
+  simDate=new Date();playing=true;speed=1;
+  document.getElementById("playBtn").textContent="PAUSE";
+  document.getElementById("dateInput").value=localValue(simDate);
+  document.querySelectorAll(".speed-chip").forEach(b=>b.classList.toggle("active",b.dataset.speed==="1"));
+  deltaReferenceJD=jdFromDate(simDate);for(const p of PLANETS)deltaReferenceLongitudes[p.name]=helioLon(p.name,deltaReferenceJD);updateUI()
+};
+document.getElementById("playBtn").onclick=()=>{
+  playing=!playing;document.getElementById("playBtn").textContent=playing?"PAUSE":"PLAY";updateUI()
+};
+document.querySelectorAll(".speed-chip").forEach(btn=>{
+  btn.onclick=()=>{
+    speed=Number(btn.dataset.speed);playing=true;document.getElementById("playBtn").textContent="PAUSE";
+    document.querySelectorAll(".speed-chip").forEach(b=>b.classList.toggle("active",b===btn));deltaReferenceJD=jdFromDate(simDate);for(const p of PLANETS)deltaReferenceLongitudes[p.name]=helioLon(p.name,deltaReferenceJD);updateUI()
+  }
+});
+document.getElementById("setDateBtn").onclick=()=>{
+  const v=document.getElementById("dateInput").value;if(!v)return;
+  simDate=new Date(v+"Z");playing=false;document.getElementById("playBtn").textContent="PLAY";deltaReferenceJD=jdFromDate(simDate);for(const p of PLANETS)deltaReferenceLongitudes[p.name]=helioLon(p.name,deltaReferenceJD);updateUI()
+};
+document.getElementById("labelsBtn").onclick=()=>{labels=!labels;toast(labels?"Planet labels ON":"Planet labels OFF")};
+document.getElementById("trailsBtn").onclick=()=>{showTrails=!showTrails;toast(showTrails?"Motion trails ON":"Motion trails OFF")};
+document.getElementById("fullscreenBtn").onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()};
+document.getElementById("helpBtn").onclick=()=>toast("Displayed UTC/simulated epoch drives every planet position, longitude and motion trail.");
+function toast(s){const t=document.getElementById("toast");t.textContent=s;t.classList.add("show");clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove("show"),2200)}
+
+updateUI();requestAnimationFrame(animate);
+</script>
+</body>
+</html>

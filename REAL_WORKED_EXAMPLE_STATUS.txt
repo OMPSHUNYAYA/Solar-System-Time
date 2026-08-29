@@ -1,0 +1,16 @@
+SOLAR SYSTEM TIME — REAL WORKED EXAMPLE STATUS v1.0.4
+
+A fully reproducible real-observation worked example is NOT included in v1.0.4.
+
+Reason: the current package does not redistribute the original reserve
+observation inputs. Creating a synthetic or ephemeris-generated pair and calling
+it a real observation would be misleading.
+
+A future package may add one rights-cleared, traceable Uranus/Neptune
+observation pair with:
+- exact source identifier and citation;
+- coordinate-frame declaration;
+- source-observation RA/Dec only as resolver input;
+- a predeclared search window;
+- recovered epoch and residual;
+- independently sourced truth revealed only for scoring.

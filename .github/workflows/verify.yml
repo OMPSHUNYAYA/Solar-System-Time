@@ -1,0 +1,30 @@
+name: Verify Solar System Time
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Reference resolver self-test
+        run: python -B 01_Reference_Implementation/Solar_System_Time_Reference_Resolver_v1_0_4.py --self-test
+
+      - name: Verify frozen evidence
+        run: python -B 03_Verification/Solar_System_Time_Evidence_Verifier_v1_0_4.py --verify
+
+      - name: Interactive clock verifier
+        run: python -B 04_Interactive_Clock/Solar_System_Clock_v1_0_4_Verifier.py
