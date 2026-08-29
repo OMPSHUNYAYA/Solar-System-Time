@@ -2,6 +2,8 @@
 
 ## Recovering historical epochs from outer-planet astrometry — a bounded reference implementation
 
+Explore the Solar System as a live structural clock with visible planetary motion and accelerated time.
+
 ![Solar System Time](https://img.shields.io/badge/Solar%20System%20Time-Epoch%20recovery%20from%20planetary%20positions-black)
 ![Package](https://img.shields.io/badge/Scientific%20Package-v1.0.4-blue)
 ![Reference resolver](https://img.shields.io/badge/Reference%20Resolver-Python%20Stdlib-blueviolet)
@@ -12,6 +14,13 @@
 ![Shunyaya](https://img.shields.io/badge/Part%20of-Shunyaya%20Framework-gold)
 
 [![Verify](https://github.com/OMPSHUNYAYA/Solar-System-Time/actions/workflows/verify.yml/badge.svg)](https://github.com/OMPSHUNYAYA/Solar-System-Time/actions/workflows/verify.yml)
+
+
+---
+
+🌐 **Live Demo:** [**Launch Solar System Clock**](https://ompshunyaya.github.io/Solar-System-Time/04_Interactive_Clock/Solar_System_Clock_v1_0_4.html)
+
+---
 
 **What the check badges mean**
 
