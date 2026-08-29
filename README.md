@@ -56,6 +56,14 @@ inverse:  observed planetary sky pos -> bounded historical epoch   (this package
 
 ---
 
+## Solar System Time at a Glance
+
+![Solar System Time project overview](./Solar-System-Time-Diagram.png)
+
+*Planetary configuration as a structural clock state, with bounded historical epoch reconstruction, project-recorded tests, declared limits, and verification pathway.*
+
+---
+
 ## Status at a glance
 
 The package reports a **bounded observational epoch-reconstruction result** under its
