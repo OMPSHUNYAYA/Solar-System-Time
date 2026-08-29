@@ -11,6 +11,8 @@
 ![Independent reproduction](https://img.shields.io/badge/Independent%20Third--Party%20Reproduction-OPEN%20%2F%20NOT%20YET%20CONFIRMED-orange)
 ![Shunyaya](https://img.shields.io/badge/Part%20of-Shunyaya%20Framework-gold)
 
+[![Verify](https://github.com/OMPSHUNYAYA/Solar-System-Time/actions/workflows/verify.yml/badge.svg)](https://github.com/OMPSHUNYAYA/Solar-System-Time/actions/workflows/verify.yml)
+
 **What the check badges mean**
 
 - **Resolver Self-Test 9/9 PASS** — synthetic round-trip and resolver safeguard checks.
