@@ -1,0 +1,87 @@
+THIRD-PARTY AND PROVENANCE NOTICES
+==================================
+
+1. General boundary
+
+The package license covers project-authored materials only.
+
+Third-party software, services, publications, scientific source material, standards, names, and factual constants remain subject to their applicable rights and terms and are not relicensed by this package.
+
+2. NASA/JPL approximate planetary elements
+
+The planetary visualization uses a compact set of published approximate major-planet orbital-element constants associated with NASA/JPL Solar System Dynamics approximate-position material.
+
+These numerical constants are used as minimum factual scientific inputs for the declared low-precision 1800-2050 visualization model.
+
+No JPL ephemeris kernel, Horizons response payload, catalogue database, source-code library, or bulk JPL data product is bundled.
+
+Relevant provenance:
+
+NASA/JPL Solar System Dynamics
+Approximate Positions of the Planets
+https://ssd.jpl.nasa.gov/planets/approx_pos.html
+
+The project does not claim ownership of NASA/JPL services, documentation, ephemerides, or underlying astronomical facts.
+
+3. WGS84 factual constants
+
+The journey geometry uses the standard WGS84 ellipsoid constants:
+
+semi-major axis = 6378137 m
+
+inverse flattening = 298.257223563
+
+These are factual geodetic constants.
+
+The WGS84 geodesic routines in the application are project-authored implementations of standard Vincenty direct/inverse methodology. No third-party geodesic source code or runtime library is bundled.
+
+Relevant provenance:
+
+National Geospatial-Intelligence Agency (NGA), World Geodetic System 1984 (WGS 84) defining parameters
+https://earth-info.nga.mil/
+
+T. Vincenty, "Direct and Inverse Solutions of Geodesics on the Ellipsoid with Application of Nested Equations" (1975). The package cites the standard method only; it does not reproduce third-party source code or substantial publication text.
+
+4. Browser platform APIs
+
+Live Journey mode uses browser platform capabilities including, when available:
+
+- Geolocation API
+- Permissions API
+- Screen Wake Lock API
+- Web Crypto API
+- Web Storage API
+
+These APIs are supplied by the user's browser/platform and are not bundled software.
+
+Browser and operating-system vendors retain their respective rights.
+
+5. Self-contained runtime
+
+The Solar System Time Journey (SSTJ) v1.5.0 application is project-authored and self-contained.
+
+It does not bundle third-party JavaScript, third-party browser libraries, images, map tiles, remote stylesheets, remote fonts, or network-delivered runtime assets.
+
+The application contains no runtime fetch, XMLHttpRequest, WebSocket, EventSource, or sendBeacon path.
+
+6. Scientific facts and methods
+
+Names, dates, identifiers, physical constants, coordinates, standard formulas, and similar scientific facts may be cited or minimally reproduced where needed for reproducibility.
+
+No ownership claim is made over underlying scientific facts or standard mathematical methods.
+
+7. Copyright boundary
+
+Project-authored materials:
+
+Copyright © 2026 Shunyaya Framework contributors.
+
+Project-authored software is governed by the Apache License, Version 2.0.
+
+Project-authored documentation and explanatory materials are governed by CC BY-NC 4.0 unless a file states otherwise.
+
+Third-party copyright, database rights, licenses, attribution requirements, contractual terms, institutional terms of use, and other applicable rights remain with their respective owners.
+
+8. No rights override
+
+Nothing in the package LICENSE or documentation overrides third-party rights or terms.
