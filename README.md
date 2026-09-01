@@ -1,8 +1,8 @@
 # 🌌 Solar System Time
 
-## Recovering historical epochs from outer-planet astrometry — a bounded reference implementation
+## Planetary time as structure — from bounded historical epoch reconstruction to moving-observer Solar-System journeys
 
-Explore the Solar System as a live structural clock with visible planetary motion and accelerated time.
+Explore the Solar System as a live structural clock — follow planetary motion, accelerate time, or track your own journey across Earth as Earth travels through the Solar System.
 
 ![Solar System Time](https://img.shields.io/badge/Solar%20System%20Time-Epoch%20recovery%20from%20planetary%20positions-black)
 ![Package](https://img.shields.io/badge/Scientific%20Package-v1.0.4-blue)
@@ -18,7 +18,13 @@ Explore the Solar System as a live structural clock with visible planetary motio
 
 ---
 
-🌐 **Live Demo:** [**Launch Solar System Clock**](https://ompshunyaya.github.io/Solar-System-Time/04_Interactive_Clock/Solar_System_Clock_v1_0_4.html)
+🌐 **Live Solar System Clock:** [**Launch Clock**](https://ompshunyaya.github.io/Solar-System-Time/04_Interactive_Clock/Solar_System_Clock_v1_0_4.html)
+
+🌍 **Solar System Time Journey v1.5.0:** [**Start Walk / Run / Ride**](https://ompshunyaya.github.io/Solar-System-Time/05_Solar_System_Time_Journey/Solar_System_Time_Journey_v1_5_0.html)
+
+`time + location + motion -> Solar-System place-time state`
+
+Track your movement across Earth while seeing how Earth carries you through the Solar System.
 
 ---
 
