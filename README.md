@@ -145,6 +145,9 @@ package makes that inverse relation explicit, bounded, and inspectable.
 - [`02_Frozen_Evidence/`](./02_Frozen_Evidence/) — evidence ledger and observational evidence summary
 - [`03_Verification/`](./03_Verification/) — ledger/key-artifact integrity verifier and SHA-256 manifest
 - [`04_Interactive_Clock/`](./04_Interactive_Clock/) — standalone Solar System Clock and structure verifier
+- [`05_Solar_System_Time_Journey/`](./05_Solar_System_Time_Journey/) — moving-observer Walk / Run / Ride experience with qualified WGS84 measurement, Solar-System place-time state, and sealed Journey records
+
+---
 
 ## Active files
 
@@ -162,10 +165,14 @@ package makes that inverse relation explicit, bounded, and inspectable.
 - [`REAL_WORKED_EXAMPLE_STATUS.txt`](./REAL_WORKED_EXAMPLE_STATUS.txt) — worked-example status and roadmap
 - [`LICENSE`](./LICENSE) — package license map
 - [`THIRD_PARTY_NOTICES.txt`](./THIRD_PARTY_NOTICES.txt) — source and rights notices
+- [`Solar_System_Time_Journey_v1_5_0.html`](./05_Solar_System_Time_Journey/Solar_System_Time_Journey_v1_5_0.html) — standalone Solar System Time Journey application
+- [`Solar_System_Time_Journey_v1_5_0_Verifier.py`](./05_Solar_System_Time_Journey/Solar_System_Time_Journey_v1_5_0_Verifier.py) — Journey package and application verifier
 
 The evidence ledger records `R8E...CLAIM_AUDIT_PASS` as a historical project
 record. It is not the current package status and does not imply outside
 endorsement, certification, peer review, or independent validation.
+
+---
 
 ## Quick verification
 
@@ -173,13 +180,17 @@ endorsement, certification, peer review, or independent validation.
 python -B 01_Reference_Implementation/Solar_System_Time_Reference_Resolver_v1_0_4.py --self-test
 python -B 03_Verification/Solar_System_Time_Evidence_Verifier_v1_0_4.py --verify
 python -B 04_Interactive_Clock/Solar_System_Clock_v1_0_4_Verifier.py
+python -B 05_Solar_System_Time_Journey/Solar_System_Time_Journey_v1_5_0_Verifier.py
 ```
 
 The first command validates synthetic solver behavior. The second validates
 ledger consistency and the selected key-artifact manifest. The third validates
-HTML structure/offline properties.
-**None of the three commands reproduces the historical blind observational
-metrics.**
+Solar System Clock HTML structure/offline properties. The fourth validates the
+Solar System Time Journey package and application structure.
+
+**None of these commands independently reproduces the historical blind observational metrics.**
+
+---
 
 ## Interactive clock
 
