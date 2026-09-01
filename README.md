@@ -206,6 +206,8 @@ planetary motion; **NOW** returns to current UTC at 1x. The display is explicitl
 labelled **LOW-PRECISION ORBITAL MODEL** so it cannot reasonably be mistaken for
 a precision ephemeris.
 
+---
+
 ## License
 
 - Software and verification code: **[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)**
@@ -214,9 +216,20 @@ a precision ephemeris.
 
 See [`LICENSE`](LICENSE) and [`THIRD_PARTY_NOTICES.txt`](THIRD_PARTY_NOTICES.txt).
 
+---
+
 ## Reproduction priority
 
 The highest-value next scientific improvement is not another green package
 check. It is a **new, independently traceable real-observation reproduction**
 with externally timestamped pre-truth predictions and redistributable/minimal
 inputs where source rights permit.
+
+---
+
+## Observation and Use Boundary
+
+**For observation and exploration only.** Not for navigation, safety-critical, metrological, or precision-ephemeris use.
+
+Independent outside-party reproduction remains OPEN / NOT YET CONFIRMED.
+
