@@ -216,7 +216,7 @@ positional_noise_threshold_m = max(2, min(25, motion_signal_min_ratio * pair_acc
 
 An individual displacement below that threshold does not contribute qualified ground distance and can be classified:
 
-REJECTED_TOO_SMALL_FOR_POSITIONAL_NOISE
+ACCUMULATING_BELOW_POSITIONAL_NOISE
 
 For successive qualified sub-threshold movements, SSTJ can retain a stable distance anchor for a bounded interval so that accumulated displacement can later satisfy the declared positional-noise and other segment gates.
 
