@@ -1,26 +1,34 @@
-# SOLAR SYSTEM TIME JOURNEY (SSTJ) v1.5.0
+# SOLAR SYSTEM TIME JOURNEY (SSTJ) v1.5.3
 
 Solar System Time Journey (SSTJ) is a self-contained browser application that combines a live or simulated low-precision Solar System clock with a moving-observer Journey layer for Walk, Run, and Ride activity.
 
-## Live Journey
+---
 
-[Start Solar System Time Journey v1.5.0](https://ompshunyaya.github.io/Solar-System-Time/05_Solar_System_Time_Journey/Solar_System_Time_Journey_v1_5_0.html)
+## Application
+
+[`Solar_System_Time_Journey_v1_5_3.html`](./Solar_System_Time_Journey_v1_5_3.html)
+
+Solar System Time Journey is provided as a standalone HTML application.
 
 Move across Earth while seeing how far Earth carries you through the Solar System.
 
-For live use on iPhone or Android:
+For live browser-geolocation use on a supported mobile browser:
 
 - allow Location access
 - use outdoors for the most reliable location signal
 - select Walk / Run / Ride and km / miles
 - tap START LIVE JOURNEY
 - begin moving when Journey Signal reaches `GOOD` or `EXCELLENT`
-- distance and estimated steps may update with some browser/device location-provider delay; keep moving normally while the signal remains good
+- distance and estimated steps are derived from accepted location movement and may update in batches rather than once per physical step
+- temporary location-quality or acquisition gaps can pause qualified ground-distance accumulation
+- when usable location acquisition recovers, qualified distance and estimated steps can resume without bridging across an unqualified interval
 - Ride does not report steps
 - use Pause / Resume when needed
 - tap END JOURNEY to seal the Journey
 
-`WAITING` or `LOCATION-DISTANCE PAUSED` means SSTJ is waiting for a usable location fix.
+`WAITING` or `LOCATION-DISTANCE PAUSED` means SSTJ is waiting for a usable location state.
+
+---
 
 ## Core relations
 
@@ -30,7 +38,9 @@ For live use on iPhone or Android:
 
 `observer motion != change to planetary clock state`
 
-SSTJ v1.5.0 extends the measurement-qualified Journey architecture with explicit kilometre/mile presentation control while preserving canonical metric geometry, scientific boundaries, privacy, and integrity semantics.
+SSTJ v1.5.3 extends the measurement-qualified Journey architecture with explicit kilometre/mile presentation control, bounded location-acquisition assistance, freshness-aware Journey Signal states, qualified sub-noise movement accumulation, and recovery from stalled accepted-ground progress while preserving canonical metric geometry, scientific boundaries, privacy, and integrity semantics.
+
+---
 
 ## Main capabilities
 
@@ -39,6 +49,11 @@ SSTJ v1.5.0 extends the measurement-qualified Journey architecture with explicit
 - Mercury-through-Neptune heliocentric visualization
 - explicit 1800-2050 approximate-element guardrail
 - live browser-geolocation Journey recording
+- bounded fresh-position assistance after sustained callback silence, sustained lack of distance-qualified accuracy, or stalled accepted-ground progress
+- freshness-aware Journey Signal so an old accurate fix cannot remain indefinitely presented as a current excellent state
+- qualified sub-noise movement accumulation against a stable distance anchor
+- continuity-safe recovery without bridging across unqualified location intervals
+- final fresh-position acquisition attempt before sealing a live Journey
 - synthetic Demo mode without location permission
 - Walk / Run / Ride activity modes
 - configurable Walk/Run stride frozen at Journey start
@@ -82,6 +97,8 @@ SSTJ v1.5.0 extends the measurement-qualified Journey architecture with explicit
 - reduced-motion and keyboard/focus accessibility handling
 - Screen Wake Lock request/re-acquisition when supported
 
+---
+
 ## Landing-screen preference
 
 The default preference is Automatic.
@@ -97,6 +114,8 @@ The user can explicitly select Planet View or Journey View as the default for th
 The preference is stored with browser local storage. It is not sent to a server and does not require an account.
 
 The responsive decision boundary used by Automatic is a browser viewport width of 760 CSS pixels.
+
+---
 
 ## Distance-unit preference
 
@@ -127,6 +146,8 @@ The unit in effect at Journey start is frozen for interpreting a declared distan
 Changing the browser display preference after a Journey ends does not change canonical route geometry, breadcrumbs, the Journey-start unit declaration, or the sealed record digest.
 
 Short metric distances can display in metres. Short mile-mode distances can display in feet. Accuracy, altitude, altitudeAccuracy, and stride declarations remain in metres because they are measurement/provenance quantities rather than the Journey distance presentation layer.
+
+---
 
 ## Journey goals
 
@@ -160,6 +181,8 @@ Time goals use active Journey time:
 
 The goal is a project-defined Journey milestone. It is not a medical, training, or physiological prescription.
 
+---
+
 ## Pause / Resume model
 
 Manual Pause is an observer-recording control.
@@ -190,6 +213,8 @@ Therefore:
 `manual_pause != pause of Earth orbit`
 
 `manual_pause != pause of planetary state`
+
+---
 
 ## Solar Splits
 
@@ -245,6 +270,8 @@ Each Solar Split records:
 
 A Solar Split is a project-derived milestone. It is not an independent sensor observation.
 
+---
+
 ## Journey Signal
 
 The live Journey Signal provides a compact view of current recording conditions.
@@ -271,7 +298,9 @@ For live browser-geolocation fixes, the current reported horizontal accuracy con
 
 These are project-defined interface states, not calibrated probabilities of true positional error.
 
-Location fixes are delivered by the browser/device location provider and can arrive intermittently or with delay. Journey Signal therefore describes the current usable measurement state; it is not a promise of continuous real-time location-update cadence.
+Location fixes are delivered by the browser/device location provider and can arrive intermittently or with delay. Journey Signal therefore considers both reported location quality and acquisition freshness. A previously accurate fix does not remain indefinitely classified as a current excellent state when fresh location callbacks stop. Journey Signal is not a promise of continuous real-time location-update cadence.
+
+---
 
 ## Continuity state
 
@@ -290,6 +319,8 @@ A live geolocation callback gap is counted when:
 `callback_gap_ms > 15000`
 
 Continuity reporting describes conditions observable by the page. It does not prove that no operating-system suspension occurred outside browser-observable events.
+
+---
 
 ## Recent Journeys
 
@@ -321,6 +352,8 @@ The full Journey record persists only when the user explicitly exports JSON.
 
 Browser local storage can be cleared by the user, browser, operating system, privacy mode, storage policy, or site-data management.
 
+---
+
 ## Ground-distance model
 
 Qualified ground distance uses a project-authored implementation of the WGS84 ellipsoidal Vincenty inverse solution.
@@ -345,6 +378,8 @@ Fallback use is counted in the exported measurement-quality block.
 
 The synthetic Demo destination step uses the corresponding WGS84 Vincenty direct solution.
 
+---
+
 ## Distance qualification
 
 A live browser-geolocation fix can become distance-qualified only when:
@@ -367,6 +402,10 @@ For two consecutive qualified live fixes, SSTJ also applies an accuracy-relative
 
 A segment must meet or exceed that threshold before it can contribute qualified distance.
 
+A qualified movement that is individually below the positional-noise threshold is not immediately counted as ground distance. Instead, SSTJ can retain the last qualified distance anchor and allow successive qualified sub-noise movement to accumulate against that stable anchor for a bounded interval. If the accumulated movement subsequently satisfies the declared positional-noise and other segment gates, the resulting qualified segment can contribute ground distance.
+
+An unqualified fix breaks this continuity and clears the relevant distance anchor. SSTJ does not bridge qualified ground distance across an unqualified interval.
+
 Activity-aware maximum segment speeds are:
 
 Walk: 15 m/s
@@ -376,6 +415,8 @@ Run: 25 m/s
 Ride: 120 m/s
 
 Ride is intended for ground travel. SSTJ is not an aviation tracker.
+
+---
 
 ## Segment reason codes
 
@@ -398,6 +439,8 @@ This makes:
 
 auditable from the exported record.
 
+---
+
 ## Raw and qualified paths
 
 SSTJ preserves two distinct path quantities.
@@ -412,6 +455,8 @@ This is the headline qualified path after the declared fix and segment gates.
 
 The two values are intentionally not interchangeable.
 
+---
+
 ## Route directness
 
 When the qualified path is continuous:
@@ -421,6 +466,8 @@ When the qualified path is continuous:
 A loop can legitimately have low directness.
 
 If a rejected fix breaks qualified-path continuity, route directness is reported as unavailable rather than presenting a potentially misleading ratio.
+
+---
 
 ## Measurement-quality state
 
@@ -447,6 +494,8 @@ The exported quality block includes:
 The accuracy quantiles use a compact streaming histogram and are approximate to the histogram resolution.
 
 The quality grade is a project-defined summary of browser-reported measurement conditions. It is not a guarantee of true physical position error.
+
+---
 
 ## Observed and derived data
 
@@ -481,6 +530,8 @@ Derived examples:
 
 This distinction allows a verifier to determine what the browser supplied and what SSTJ computed.
 
+---
+
 ## Browser capability variability
 
 The browser Geolocation API does not guarantee a specific positioning technology.
@@ -490,6 +541,8 @@ Depending on browser, hardware, permission state, and positioning source, speed,
 SSTJ records capability coverage. Where declared, it falls back to derived values; otherwise the quantity is reported as unavailable.
 
 The application therefore uses the term browser geolocation for the measurement source rather than asserting that every fix is GNSS/GPS-derived.
+
+---
 
 ## Timestamp model
 
@@ -505,6 +558,8 @@ A provider timestamp older than 90 seconds is not distance-qualified.
 A non-positive interval between consecutive provider timestamps cannot contribute ground distance.
 
 Long positive intervals over 90 seconds are classified as unclassified time even when an otherwise valid spatial segment is retained.
+
+---
 
 ## Fitness metrics
 
@@ -540,6 +595,8 @@ Average Walk/Run pace is:
 
 Elevation requires altitude and altitudeAccuracy-qualified counted segments.
 
+---
+
 ## Earth-motion carriage
 
 Approximate Earth-rotation carriage uses a WGS84 spin-axis-radius model at mean distance-qualified latitude.
@@ -549,6 +606,8 @@ Approximate Earth-orbit carriage uses the low-precision Earth orbital model used
 Both are derived from wall elapsed Journey time, including manual-pause intervals, because physical Earth motion does not pause when Journey acquisition pauses.
 
 These values are not added to ground distance.
+
+---
 
 ## Breadcrumb integrity
 
@@ -574,6 +633,8 @@ The hash chain provides tamper evidence for recorded breadcrumb ordering/content
 
 `breadcrumb SHA-256 chain != proof of location authenticity`
 
+---
+
 ## Record digest
 
 A completed Journey receives a SHA-256 digest over the canonical exported record before the digest field is attached.
@@ -586,14 +647,18 @@ The implementation prefers the browser Web Crypto SHA-256 implementation and inc
 
 `record SHA-256 != proof that browser geolocation was genuine`
 
+---
+
 ## Integrity manifest scope
 
 `SHA256SUMS.txt` intentionally covers only the two executable artifacts:
 
-- `Solar_System_Time_Journey_v1_5_0.html`
-- `Solar_System_Time_Journey_v1_5_0_Verifier.py`
+- `Solar_System_Time_Journey_v1_5_3.html`
+- `Solar_System_Time_Journey_v1_5_3_Verifier.py`
 
 Documentation, scientific-boundary, provenance, copyright, and license files are deliberately not included in the checksum manifest. Their repository history remains visible through version control, while executable-artifact integrity can be checked without forcing checksum changes for documentation-only edits.
+
+---
 
 ## Privacy and network posture
 
@@ -607,21 +672,31 @@ Browser geolocation is used only after the user starts a live Journey and grants
 
 Recent Journey summaries, landing preference, and the distance-unit preference use browser local storage only.
 
+---
+
 ## Location acquisition
 
 Live geolocation is designed for a secure top-level HTTPS browser context.
 
-The application provides location-assistance messages for blocked permissions, unsupported browser contexts, embedded contexts, unavailable fixes, and Android location settings where supported.
+The application provides location-assistance messages for blocked permissions, unsupported browser contexts, embedded contexts, unavailable fixes, and device/browser location settings where supported.
+
+SSTJ keeps the browser `watchPosition()` stream as the primary live acquisition path. A bounded, rate-controlled fresh-position request can also be used when there is sustained callback silence, sustained absence of distance-qualified accuracy, or sustained absence of accepted ground progress.
+
+Acquisition assistance does not bypass horizontal-accuracy, timestamp-freshness, positional-noise, continuity, or activity-speed qualification.
+
+When a live Journey is ended, SSTJ can attempt one final fresh high-accuracy position before sealing the record. Failure to obtain that final position does not prevent the existing Journey from being sealed.
 
 A local file is not treated as the primary live-geolocation deployment environment.
 
-Indoor or obstructed conditions can produce unavailable, intermittent, or delayed usable location fixes. In observed Android testing, moving outdoors allowed the Journey Signal to progress from LIMITED to EXCELLENT and remain stable under clear outdoor conditions.
+Indoor or obstructed conditions can produce unavailable, intermittent, or delayed usable location fixes. Qualified ground distance is intentionally allowed to pause under such conditions rather than counting unqualified location movement.
+
+---
 
 ## Verification
 
 From the package directory:
 
-`python -B Solar_System_Time_Journey_v1_5_0_Verifier.py`
+`python -B Solar_System_Time_Journey_v1_5_3_Verifier.py`
 
 The browser application also includes an embedded runtime self-test.
 
@@ -635,17 +710,17 @@ Open the HTML, open the browser console, and run:
 })();
 ```
 
-The v1.5.0 embedded self-test contains 50 checks covering the inherited planetary, WGS84, qualification, integrity, retention, and provenance logic plus landing preference, kilometre/mile conversion, kilometre/mile split defaults, active-time pause accounting, Journey Signal states, Solar Split capture/hash binding, goal achievement, unit metadata, callback-wall provenance, pause anchor reset, reset-state split consistency, and continuity/local-storage policy structures.
+The v1.5.3 embedded self-test contains 59 checks covering planetary-state guards, WGS84 geometry, distance qualification, integrity, retention, provenance, landing preference, kilometre/mile conversion, Solar Splits, active-time pause accounting, Journey Signal states, callback-wall provenance, continuity handling, acquisition-assist controls, accepted-progress stall detection, signal-freshness aging, qualified sub-noise movement accumulation, and prevention of route bridging across unqualified or paused intervals.
 
-Package verification and browser self-tests are not substitutes for real-device field testing.
+Package verification and browser self-tests are not substitutes for real-device field validation.
 
-Live HTTPS field testing has confirmed Android Chrome and Brave operation, including outdoor location acquisition, Walk recording, distance accumulation, estimated Walk steps, Pause / Resume, local route trace, continuity recording, Recent Journey summary creation, and sealed Journey completion.
+Field-level validation across multiple devices, browsers, operating systems, movement patterns, and positioning conditions is ongoing.
 
-Android Chrome testing has also exercised mixed walking and ground-vehicle movement. Ride-style movement does not produce estimated steps.
+Estimated steps are derived from qualified ground distance and the declared stride length. They are not sensor-measured pedometer steps and may update in batches as accepted location segments become available.
 
-Indoor testing showed that browser geolocation can fall to `WAITING` or `LOCATION-DISTANCE PAUSED` when usable fixes are unavailable. Outdoor conditions restored `LIMITED` through `EXCELLENT` signal states. Location-derived distance and estimated-step updates can also arrive with browser/device location-provider delay.
+Location availability and quality can vary with device, browser, environment, and positioning conditions. SSTJ intentionally avoids counting unqualified movement and does not bridge qualified ground distance across unqualified intervals.
 
-Further device/browser coverage, including iOS Safari, remains open.
+---
 
 ## Scientific boundary
 
@@ -663,6 +738,8 @@ It is not:
 - an aviation tracker
 
 See SCIENTIFIC_BOUNDARY.txt for the complete boundary statement.
+
+---
 
 ## Licensing and provenance
 
