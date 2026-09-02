@@ -20,7 +20,7 @@ Explore the Solar System as a live structural clock — follow planetary motion,
 
 🌐 **Live Solar System Clock:** [**Launch Clock**](https://ompshunyaya.github.io/Solar-System-Time/04_Interactive_Clock/Solar_System_Clock_v1_0_4.html)
 
-🌍 **Solar System Time Journey v1.5.0:** [**Start Walk / Run / Ride**](https://ompshunyaya.github.io/Solar-System-Time/05_Solar_System_Time_Journey/Solar_System_Time_Journey_v1_5_0.html)
+🌍 **Solar System Time Journey v1.5.3:** [`Solar_System_Time_Journey_v1_5_3.html`](./05_Solar_System_Time_Journey/Solar_System_Time_Journey_v1_5_3.html)
 
 `time + location + motion -> Solar-System place-time state`
 
@@ -171,8 +171,8 @@ package makes that inverse relation explicit, bounded, and inspectable.
 - [`REAL_WORKED_EXAMPLE_STATUS.txt`](./REAL_WORKED_EXAMPLE_STATUS.txt) — worked-example status and roadmap
 - [`LICENSE`](./LICENSE) — package license map
 - [`THIRD_PARTY_NOTICES.txt`](./THIRD_PARTY_NOTICES.txt) — source and rights notices
-- [`Solar_System_Time_Journey_v1_5_0.html`](./05_Solar_System_Time_Journey/Solar_System_Time_Journey_v1_5_0.html) — standalone Solar System Time Journey application
-- [`Solar_System_Time_Journey_v1_5_0_Verifier.py`](./05_Solar_System_Time_Journey/Solar_System_Time_Journey_v1_5_0_Verifier.py) — Journey package and application verifier
+- [`Solar_System_Time_Journey_v1_5_3.html`](./05_Solar_System_Time_Journey/Solar_System_Time_Journey_v1_5_3.html) — standalone Solar System Time Journey application
+- [`Solar_System_Time_Journey_v1_5_3_Verifier.py`](./05_Solar_System_Time_Journey/Solar_System_Time_Journey_v1_5_3_Verifier.py) — Journey package and application verifier
 
 The evidence ledger records `R8E...CLAIM_AUDIT_PASS` as a historical project
 record. It is not the current package status and does not imply outside
@@ -186,7 +186,7 @@ endorsement, certification, peer review, or independent validation.
 python -B 01_Reference_Implementation/Solar_System_Time_Reference_Resolver_v1_0_4.py --self-test
 python -B 03_Verification/Solar_System_Time_Evidence_Verifier_v1_0_4.py --verify
 python -B 04_Interactive_Clock/Solar_System_Clock_v1_0_4_Verifier.py
-python -B 05_Solar_System_Time_Journey/Solar_System_Time_Journey_v1_5_0_Verifier.py
+python -B 05_Solar_System_Time_Journey/Solar_System_Time_Journey_v1_5_3_Verifier.py
 ```
 
 The first command validates synthetic solver behavior. The second validates
