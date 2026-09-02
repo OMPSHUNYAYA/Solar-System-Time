@@ -1,4 +1,4 @@
-SOLAR SYSTEM TIME JOURNEY (SSTJ) v1.5.0 - SCIENTIFIC BOUNDARY
+SOLAR SYSTEM TIME JOURNEY (SSTJ) v1.5.3 - SCIENTIFIC BOUNDARY
 ================================================================
 
 1. Core interpretation
@@ -134,13 +134,17 @@ Solar Splits are not independent sensor observations.
 
 The live Journey Signal presents project-defined states such as EXCELLENT, GOOD, LIMITED, WAITING, PAUSED, SYNTHETIC, and SEALED.
 
-For live location, reported horizontal accuracy contributes to the interface state:
+For live location, reported horizontal accuracy and acquisition freshness contribute to the interface state:
 
 EXCELLENT: accuracy <= 8 m
 
 GOOD: 8 m < accuracy <= 15 m
 
 LIMITED: 15 m < accuracy <= 35 m
+
+WAITING: no current distance-qualified location state
+
+A previously accurate fix is not treated indefinitely as a current excellent state when fresh location callbacks stop.
 
 These labels do not constitute calibrated confidence probabilities and do not guarantee true physical error bounds.
 
@@ -202,7 +206,7 @@ A rejected fix breaks the qualified segment chain. A later qualified fix does no
 
 14. Accuracy-relative segment qualification
 
-For consecutive qualified live fixes:
+For qualified live fixes:
 
 pair_accuracy_m = hypot(previous_accuracy_m, current_accuracy_m)
 
@@ -210,9 +214,13 @@ motion_signal_min_ratio = 0.5
 
 positional_noise_threshold_m = max(2, min(25, motion_signal_min_ratio * pair_accuracy_m))
 
-A segment below that threshold is classified:
+An individual displacement below that threshold does not contribute qualified ground distance and can be classified:
 
 REJECTED_TOO_SMALL_FOR_POSITIONAL_NOISE
+
+For successive qualified sub-threshold movements, SSTJ can retain a stable distance anchor for a bounded interval so that accumulated displacement can later satisfy the declared positional-noise and other segment gates.
+
+An unqualified fix breaks this continuity. SSTJ does not bridge qualified ground distance across an unqualified interval.
 
 This is a declared project filter intended to reduce accumulation of location jitter. It is not a statistical proof that every accepted segment is real motion or every rejected segment is noise.
 
@@ -447,7 +455,11 @@ Landing preference, distance-unit preference, and Recent Journey summaries use b
 
 Live browser geolocation is intended for a direct top-level secure HTTPS context.
 
-Permission policy, browser rules, operating-system location services, user permission decisions, and device/browser behavior can prevent live location even when application code is correct.
+The continuous browser location watch remains the primary live acquisition path. SSTJ can make bounded, rate-controlled fresh-position requests after sustained location-delivery, distance-quality, or accepted-ground-progress stalls.
+
+These acquisition requests do not bypass the declared accuracy, freshness, positional-noise, continuity, or speed qualification gates.
+
+Permission policy, browser rules, operating-system location services, user permission decisions, and device/browser behavior can prevent or interrupt live location even when application code is correct.
 
 A local file is not treated as the primary live-geolocation deployment environment.
 
@@ -471,11 +483,13 @@ Users should not interact with the display while driving or when doing so would 
 
 Package verification, static analysis, mathematical checks, and browser self-tests establish software-level properties within their tested scope.
 
-They do not substitute for real-device field testing of browser geolocation, permission flows, mobile background behavior, Screen Wake Lock behavior, or hardware/provider measurement quality.
+They do not substitute for field-level validation of browser geolocation, permission flows, background behavior, Screen Wake Lock behavior, or hardware/provider measurement quality.
+
+Field-level validation across devices, browsers, operating systems, movement patterns, and positioning conditions remains ongoing.
 
 36. Overall claim boundary
 
-SSTJ v1.5.0 is a project-defined measurement-qualified place-time Journey representation layered over a low-precision Solar System clock.
+SSTJ v1.5.3 is a project-defined measurement-qualified place-time Journey representation layered over a low-precision Solar System clock.
 
 It is not:
 
