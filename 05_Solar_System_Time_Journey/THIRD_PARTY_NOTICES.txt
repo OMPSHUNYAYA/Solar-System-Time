@@ -58,7 +58,7 @@ Browser and operating-system vendors retain their respective rights.
 
 5. Self-contained runtime
 
-The Solar System Time Journey (SSTJ) v1.5.0 application is project-authored and self-contained.
+The Solar System Time Journey (SSTJ) v1.5.3 application is project-authored and self-contained.
 
 It does not bundle third-party JavaScript, third-party browser libraries, images, map tiles, remote stylesheets, remote fonts, or network-delivered runtime assets.
 
